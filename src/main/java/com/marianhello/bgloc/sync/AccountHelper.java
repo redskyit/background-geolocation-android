@@ -21,19 +21,23 @@ public class AccountHelper {
          * Add the account and account type, no password or user data
          * If successful, return the Account object, otherwise report an error.
          */
-        if (accountManager.addAccountExplicitly(account, null, null)) {
-            /*
-             * If you don't set android:syncable="true" in
-             * in your <provider> element in the manifest,
-             * then call context.setIsSyncable(account, AUTHORITY, 1)
-             * here.
-             */
-        } else {
-            /*
-             * The account exists or some other error occurred. Log this, report it,
-             * or handle it internally.
-             */
-        }
-        return account;
-    }
+		try {
+			if (accountManager.addAccountExplicitly(account, null, null)) {
+				/*
+				 * If you don't set android:syncable="true" in
+				 * in your <provider> element in the manifest,
+				 * then call context.setIsSyncable(account, AUTHORITY, 1)
+				 * here.
+				 */
+			} else {
+				/*
+				 * The account exists or some other error occurred. Log this, report it,
+				 * or handle it internally.
+				 */
+			}
+		} catch(SecurityException e) {
+			e.printStackTrace();
+		}
+		return account;
+	}
 }
